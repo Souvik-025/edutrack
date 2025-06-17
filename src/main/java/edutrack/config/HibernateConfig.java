@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
-@ComponentScan(basePackages = "edutrack")
+@ComponentScan(basePackages = {"edutrack.repository","edutrack.service"})
 @EnableTransactionManagement
 public class HibernateConfig {
 
@@ -49,7 +49,7 @@ public class HibernateConfig {
 		HibernateTransactionManager ht = new HibernateTransactionManager();
 		ht.setSessionFactory(sf);
 		return ht;
-	}
+	}	
 	
 	@Bean
 	public Validator getValidator() {
