@@ -2,16 +2,17 @@ package edutrack.config;
 
 import java.util.Properties;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import javax.validation.Validator;
 
-import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -32,23 +33,29 @@ public class HibernateConfig {
 	}
 
 	@Bean
-	public LocalSessionFactoryBean getSessionFactoryBean() {
-		LocalSessionFactoryBean sf = new LocalSessionFactoryBean();
-		sf.setDataSource(getDataSource());
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		LocalContainerEntityManagerFactoryBean sf = new LocalContainerEntityManagerFactoryBean();
+		
 		Properties pro = new Properties();
+		// To keep properties related orm framework create properties object
 		pro.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		pro.setProperty("hibernate.hbm2ddl.auto", "update");
 		pro.setProperty("hibernate.show_sql", "true");
-		sf.setPackagesToScan("edutrack.model");
-		sf.setHibernateProperties(pro);
+		
+		sf.setPackagesToScan("edutrack.model");		
+		sf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+		sf.setJpaProperties(pro);
+		sf.setDataSource(getDataSource());
+		
 		return sf;
 	}
 
 	@Bean
-	public PlatformTransactionManager getTransaction(SessionFactory sf) {
-		HibernateTransactionManager ht = new HibernateTransactionManager();
-		ht.setSessionFactory(sf);
-		return ht;
+	public PlatformTransactionManager getTransactionManager(EntityManagerFactory ef) {
+//		JpaTransactionManager jt = new JpaTransactionManager(ef); We can also pass ef(EntityManagerFactory) in constructor
+		JpaTransactionManager jt = new JpaTransactionManager();
+		jt.setEntityManagerFactory(ef);
+		return jt;
 	}	
 	
 	@Bean
