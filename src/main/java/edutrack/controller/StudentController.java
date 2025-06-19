@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import edutrack.model.Student;
 import edutrack.repository.StudentRepository;
@@ -33,5 +34,18 @@ public class StudentController {
 		sr.save(s);
 		m.addAttribute("student", s);
 		return "success";
+	}
+	
+	@GetMapping("/getall")
+	public String getAll(Model m) {
+		m.addAttribute("students", sr.findAll());
+		return "studentlist";
+	}
+	
+	@GetMapping("/delete")
+	public String delete(@RequestParam("id") Integer id) {
+		if(sr.findById(id).isPresent())
+			sr.deleteById(id);
+		return "redirect:/getall";
 	}
 }
