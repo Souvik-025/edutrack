@@ -2,6 +2,7 @@ package edutrack.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,9 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import edutrack.model.Student;
+import edutrack.repository.StudentRepository;
 
 @Controller
 public class StudentController {
+	
+	@Autowired
+	private StudentRepository sr;
 
 	@GetMapping("/register")
 	public String getRegister(Model m) {
@@ -25,7 +30,7 @@ public class StudentController {
 		
 		if(br.hasErrors())
 			return "register";
-		
+		sr.save(s);
 		m.addAttribute("student", s);
 		return "success";
 	}

@@ -25,7 +25,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 public class HibernateConfig {
 
 	@Bean
-	public DataSource getDataSource() {
+	public DataSource dataSource() {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
 		ds.setDriverClassName("org.postgresql.Driver");
 		ds.setUrl("jdbc:postgresql://localhost:5432/edutrack");
@@ -47,13 +47,13 @@ public class HibernateConfig {
 		sf.setPackagesToScan("edutrack.model");		
 		sf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		sf.setJpaProperties(pro);
-		sf.setDataSource(getDataSource());
+		sf.setDataSource(dataSource());
 		
 		return sf;
 	}
 
 	@Bean
-	public PlatformTransactionManager getTransactionManager(EntityManagerFactory ef) {
+	public PlatformTransactionManager transactionManager(EntityManagerFactory ef) {
 //		JpaTransactionManager jt = new JpaTransactionManager(ef); We can also pass ef(EntityManagerFactory) in constructor
 		JpaTransactionManager jt = new JpaTransactionManager();
 		jt.setEntityManagerFactory(ef);
