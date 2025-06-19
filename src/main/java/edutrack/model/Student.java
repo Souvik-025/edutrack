@@ -5,7 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 
 import lombok.AllArgsConstructor;
@@ -18,6 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "student_details")
 public class Student {
 
 	@Id
@@ -26,6 +29,7 @@ public class Student {
 	private Integer id;
 	
 	@Column(name = "student_name", nullable = false)
+	@Pattern(regexp = "^[A-Za-z]+( [A-Za-z]+)*$", message = "Only alphabets are allowed and only one space is allowed")
 	private String name;
 	@Positive(message = "class number should be positive")
 	@Max(value = 12,message = "Highest grade is 12")
