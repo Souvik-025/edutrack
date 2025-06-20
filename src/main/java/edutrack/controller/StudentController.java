@@ -48,4 +48,21 @@ public class StudentController {
 			sr.deleteById(id);
 		return "redirect:/getall";
 	}
+	
+	@GetMapping("/update")
+	public String update(@RequestParam("id") Integer id, Model m) {
+		Student s = sr.findById(id).get();
+		m.addAttribute("student", s);
+		return "update";
+	}
+	
+	@PostMapping("/update")
+	public String updateConfirm( @Valid @ModelAttribute("student") Student s, BindingResult bs, Model m) {
+		if(bs.hasErrors())
+			return "redirect:/update?id="+s.getId();
+		
+		sr.updateNameById(s.getId(), s.getName());
+		m.addAttribute("student", s);
+		return "success";
+	}
 }

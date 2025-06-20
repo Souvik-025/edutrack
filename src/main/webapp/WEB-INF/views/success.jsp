@@ -25,6 +25,12 @@
 				<p>
 					<strong>Class:</strong> ${student.classNo}
 				</p>
+				<p>
+					<strong>Email:</strong> ${student.email}
+				</p>
+				<p>
+					<strong>Phone Number:</strong> ${student.phoneNumber}
+				</p>
 
 				<div class="text-center mt-4">
 					<a href="register" class="btn btn-primary">Register Another Student</a><br><br>

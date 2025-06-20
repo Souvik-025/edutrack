@@ -22,6 +22,8 @@
                         <th>Roll No.</th>
                         <th>Name</th>
                         <th>Class</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -31,8 +33,10 @@
                             <td>${s.id}</td>
                             <td>${s.name}</td>
                             <td>${s.classNo}</td>
+                            <td>${s.email}</td>
+                            <td>${s.phoneNumber}</td>
                             <td>
-                                <a href="edit?id=${s.id}" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="update?id=${s.id}" class="btn btn-sm btn-primary">Edit</a>
                                 <a href="delete?id=${s.id}" class="btn btn-sm btn-danger"
                                    onclick="return confirm('Delete student ${s.name}?');">
                                    Delete
@@ -44,6 +48,7 @@
         </c:if>
 
         <a href="register" class="btn btn-primary mt-3">Register New Student</a>
+        <a href="index.jsp" class="btn btn-primary mt-3">Go Back To Home</a>
     </div>
 </body>
 </html>
