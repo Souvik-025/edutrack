@@ -51,6 +51,21 @@
                 <form:input path="name" cssClass="form-control" />
                 <form:errors path="name" cssClass="text-danger" />
             </div>
+            <div class="form-group">
+                <form:label path="classNo">Class</form:label>
+                <form:input path="classNo" class="form-control" />
+                <form:errors path="classNo" cssClass="error" />
+            </div>
+            <div class="form-group">
+                <form:label path="email">Email</form:label>
+                <form:input path="email" class="form-control" />
+                <form:errors path="email" cssClass="error" />
+            </div>
+            <div class="form-group">
+                <form:label path="phoneNumber">Phone Number</form:label>
+                <form:input path="phoneNumber" class="form-control" />
+                <form:errors path="phoneNumber" cssClass="error" />
+            </div>
             <div class="btn-group">
                 <button type="submit" class="btn btn-primary">Update</button>
                 <a href="getall" class="btn btn-secondary">Cancel</a>

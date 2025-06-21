@@ -61,7 +61,7 @@ public class StudentController {
 		if(bs.hasErrors())
 			return "redirect:/update?id="+s.getId();
 		
-		sr.updateNameById(s.getId(), s.getName());
+		sr.updateAllDetails(s.getId(), s.getName(), s.getClassNo(), s.getEmail(), s.getPhoneNumber());
 		m.addAttribute("student", s);
 		return "success";
 	}

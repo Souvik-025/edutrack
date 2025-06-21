@@ -13,24 +13,30 @@ import org.springframework.transaction.annotation.Transactional;
 import edutrack.model.Student;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, Integer>{
+public interface StudentRepository extends JpaRepository<Student, Integer> {
 
 	@Override
 //	<T extends Student> T save(T entity);
 	Student save(Student entity);
-	
+
 	@Override
 	List<Student> findAll();
-	
+
 	@Override
 	Optional<Student> findById(Integer id);
-	
+
 	@Override
 	void deleteById(Integer id);
-	
+
 	@Modifying
 	@Transactional
 	@Query("Update Student s set s.name=:name where s.id=:id")
 	public int updateNameById(@Param("id") Integer id, @Param("name") String name);
 	
+	@Modifying
+	@Transactional
+	@Query("Update Student s set s.name=:name, s.classNo=:classNo,  s.email=:email, s.phoneNumber=:phoneNumber where s.id=:id")
+	public int updateAllDetails(@Param("id") Integer id, @Param("name") String name, @Param("classNo") Integer classNo,
+			@Param("email") String email, @Param("phoneNumber") String phoneNumber);
+
 }
