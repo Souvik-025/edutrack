@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
-@ComponentScan(basePackages = "edutrack.repository")
+@ComponentScan(basePackages = {"edutrack.repository","edutrack.service"})
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "edutrack.repository")
 public class HibernateConfig {
